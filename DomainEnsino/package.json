@@ -1,0 +1,21 @@
+{
+  "name": "domainensino",
+  "version": "1.0.0",
+  "description": "dominio instituicao de ensino",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Isaque Copque",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.18"
+  }
+}
