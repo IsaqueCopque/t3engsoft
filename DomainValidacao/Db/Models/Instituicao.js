@@ -23,11 +23,7 @@ const Instituicao = db.define('instituicao',{
     mantenedora:{
         type: Sequelize.STRING,
         allowNull: false
-    },
-    // instparceiras:{
-    //     type: Sequelize.JSON,
-    //     allowNull: true
-    // }
+    }
 });
 
 export default Instituicao;

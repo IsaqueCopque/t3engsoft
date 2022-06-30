@@ -1,7 +1,7 @@
 import express from "express";
 
 import { Instituicao, Colaborador } from '../Db/models.js';
-import { validaToken, getToken, hashSenha } from "./Auth.js";
+import { validaToken, getToken  } from "./Auth.js";
 
 const router = express.Router();
 
@@ -25,9 +25,10 @@ router.put('/', validaToken(1), async (req,res) => {
     try{
         const uid = getToken(req.cookies["token"]).uid;
         const superint = await Colaborador.findOne({where: {id: uid}});
-        const inst = await Instituicao.findOne({where: {id: superint.instituicaoId}})
+        const inst = await Instituicao.findOne({where: {id: superint.instituicaoId}});
         if(inst){
             await inst.update(req.body);
+            await criarLog(`Alterou dados da instituição.`,getToken(req.cookies["token"]).uit);
             res.status(200).end();
         }else res.status(400).json({error: "Você não possui nenhuma instituição."})
     }catch(error){res.status(500).json({ee: error})}

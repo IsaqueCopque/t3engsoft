@@ -1,30 +1,29 @@
 import Sequelize from "sequelize";
 import db from '../connection.js';
 
-const Validacao = db.define('Validacao',{
+const Validador = db.define('validador',{
     id:{
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    curso:{
+    nome:{
         type: Sequelize.STRING,
         allowNull: false
     },
-    aluno:{
+    endereco:{
         type: Sequelize.STRING,
         allowNull: false
     },
-    data:{
-        type: Sequelize.DATE,
+    mec:{
+        type: Sequelize.STRING,
         allowNull: false
     },
-    validado:{
-        type: Sequelize.BOOLEAN,
-        default: false,
+    mantenedora:{
+        type: Sequelize.STRING,
         allowNull: false
-    }
-})
+    },
+});
 
-export default Validacao;
+export default Validador;

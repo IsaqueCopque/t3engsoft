@@ -12,12 +12,9 @@ const Log = db.define('Log',{
         type: Sequelize.STRING,
         allowNull: false
     },
-    // autor:{
-    //     type: Sequelize.STRING,
-    //     allowNull: false,
-    // },
     data:{
         type: Sequelize.DATE,
+        default: Sequelize.fn('NOW'),
         allowNull: false
     }
 })

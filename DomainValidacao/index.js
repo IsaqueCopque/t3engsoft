@@ -21,9 +21,15 @@ app.use(express.urlencoded({extended: true}));
 import { Inst } from './Routes/Inst.js';
 import { Login } from './Routes/Login.js';
 import { User } from './Routes/Users.js';
+import { Parceira } from './Routes/Parceira.js';
+import { Valida } from './Routes/Valida.js';
+import { Logs } from './Routes/Log.js';
 app.use('/inst', Inst);
 app.use('/login', Login);
 app.use('/user', User);
+app.use('/parceiros', Parceira);
+app.use('/validacoes', Valida);
+app.use('/logs', Logs);
 //---
 
 app.listen(process.env.VALIDAPORT, ()=>console.log("Instituição validadora rodando na porta "+process.env.VALIDAPORT+"."));
