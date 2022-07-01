@@ -7,10 +7,10 @@ const router = express.Router();
 
 router.post('/', validaToken(2), async(req,res) => {
     try{
-        const parc = await Parceira.create(req.body);
-        const inst = getToken(req.cookies["token"]).uit;
-        await parc.setInstituicao(inst);
-        await criarLog(`Cadastrou uma instituição parceira: ${parc.nome} de id ${parc.id}.`,getToken(req.cookies["token"]).uit);
+        const parc = await Parceira.create({...req.body, "acesso":false});
+        const token = getToken(req.cookies["token"]);
+        await parc.setInstituicao(token.uit);
+        await criarLog(`Cadastrou uma instituição parceira: ${parc.nome} de id ${parc.id}.`,token);
         res.status(200).json({success: "Instituição parceira criada"});
     }catch(e){res.status(500).json({error:e})}
 });
@@ -20,7 +20,7 @@ router.post('/acesso/:id', validaToken(1), async(req,res) => {
         const parc = await Parceira.findOne({where: {id: req.params.id}});
         if(parc){
             await parc.update({"acesso":req.body.acesso});
-            await criarLog(`Liberou acesso da instituição ${parc.nome} de id ${parc.id}.`,getToken(req.cookies["token"]).uit);
+            await criarLog(`Liberou acesso da instituição ${parc.nome} de id ${parc.id}.`,getToken(req.cookies["token"]));
             res.status(200).json({success: "Acesso definido"});
         }
         else{res.status(400).json({error: "Não existe instituição parceira com o id informado."})}

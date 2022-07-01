@@ -8,7 +8,7 @@ const Colaborador = db.define('colaborador',{
         allowNull: false,
         primaryKey: true
     },
-    cargo:{ //1 -dirigente, 2-diretor, 3- funcionario
+    cargo:{ //1-diretor, 2-dirigente, , 3- funcionario
         type: Sequelize.TINYINT,
         allowNull: false,
     },

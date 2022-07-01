@@ -16,6 +16,10 @@ const Log = db.define('Log',{
         type: Sequelize.DATE,
         default: Sequelize.fn('NOW'),
         allowNull: false
+    },
+    instituicao:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
     }
 })
 

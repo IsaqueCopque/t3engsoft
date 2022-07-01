@@ -24,6 +24,10 @@ const Validacao = db.define('Validacao',{
         type: Sequelize.BOOLEAN,
         default: false,
         allowNull: false
+    },
+    validador:{
+        type: Sequelize.INTEGER,
+        allowNull: false
     }
 })
 

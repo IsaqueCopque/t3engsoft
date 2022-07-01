@@ -19,15 +19,10 @@ Log.belongsTo(Colaborador);
 Validador.belongsTo(Instituicao)
 //---------
 
-Instituicao.sync();
-Colaborador.sync();
-Curso.sync();
-Log.sync();
-Validador.sync();
+await Instituicao.sync();
+await Colaborador.sync();
+await Curso.sync();
+await Log.sync();
+await Validador.sync();
 
-// Instituicao.sync({force: true});
-// Colaborador.sync({force: true});
-// Curso.sync({force: true});
-// Log.sync({force: true});
-
-export { Instituicao, Colaborador, Log, Curso};
+export { Instituicao, Colaborador, Log, Curso, Validador};

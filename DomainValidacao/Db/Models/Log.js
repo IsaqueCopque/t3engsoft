@@ -12,8 +12,12 @@ const Log = db.define('Log',{
         type: Sequelize.STRING,
         allowNull: false
     },
-    data:{
+    data:{ 
         type: Sequelize.DATE,
+        allowNull: false
+    },
+    instituicao:{
+        type: Sequelize.INTEGER,
         allowNull: false
     }
 })

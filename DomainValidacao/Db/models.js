@@ -20,16 +20,15 @@ Instituicao.hasMany(Parceira);
 Parceira.belongsTo(Instituicao);
 //---------
 
-Instituicao.sync();
-Colaborador.sync();
-Log.sync();
-Validacao.sync();
-Parceira.sync();
-
+await Instituicao.sync();
+await Colaborador.sync();
+await Log.sync();
+await Validacao.sync();
+await Parceira.sync();
 
 // Instituicao.sync({force: true});
 // Colaborador.sync({force: true});
 // Validacao.sync({force: true});
 // Log.sync({force: true});
 
-export { Instituicao, Colaborador, Log, Validacao};
+export { Instituicao, Colaborador, Log, Validacao, Parceira};

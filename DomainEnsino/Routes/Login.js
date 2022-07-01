@@ -11,7 +11,7 @@ router.post('/register', async (req,res) => {
         const hash = hashSenha(req.body.senha);
         req.body.senha = hash;
         await Colaborador.create(req.body);
-        res.status(200).json({"sucess": "Dirigente criado."});
+        res.status(200).json({"sucess": "Diretor criado."});
     }catch(e){res.status(500).send("Erro ao cadastrar colaborador. "+e);}
 })
 

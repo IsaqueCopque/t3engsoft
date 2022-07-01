@@ -26,7 +26,6 @@ const Parceira = db.define('parceira', {
     },
     acesso:{
         type: Sequelize.BOOLEAN,
-        default: false,
         allowNull: false
     }
 });

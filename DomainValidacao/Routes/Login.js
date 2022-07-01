@@ -1,6 +1,4 @@
 import express from "express";
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import 'cookie-parser';
 
 import { Colaborador } from "../Db/models.js";
@@ -10,11 +8,14 @@ const router = express.Router();
 
 router.post('/register', async (req,res) => {
     try{
-        const hash = hashSenha(req.body.senha);
-        req.body.senha = hash;
-        await Colaborador.create(req.body);
-        res.status(200).json({"sucess": "Superintendente criado."});
-    }catch(e){res.status(500).send("Erro ao cadastrar colaborador. "+e);}
+        var superint = await Colaborador.findOne({where: {email: req.body.email}});
+        if(!superint){
+            const hash = hashSenha(req.body.senha);
+            req.body.senha = hash;
+            await Colaborador.create(req.body);
+            res.status(200).json({"sucess": "Superintendente criado."});
+        }else res.status(400).json({erro: "Este email já possue cadastro."})
+    }catch(e){res.status(500).send("Erro ao cadastrar superintendente. "+e);}
 })
 
 router.post('/', async (req,res) => {
