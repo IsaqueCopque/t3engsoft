@@ -7,25 +7,33 @@ const router = express.Router();
 
 router.post('/', validaToken(2), async(req,res) => {
     try{
-        const validador = await Validador.create(req.body);
+        var validador = await Validador.findOne({where: {instituicaoId: getToken(req.cookies["token"]).uit}});
+        if(validador){ res.status(400).json({"error": "Já existe um validador cadastrado."});
+        }else{
+        validador = await Validador.create(req.body);
         const token = getToken(req.cookies["token"]);
-        await validador.setInstituicao(inst.uit);
-        await criarLog(`Cadastrou uma instituição validadora: ${parc.nome} de id ${parc.id}.`,token);
+        await validador.setInstituicao(token.uit);
+        await criarLog(`Cadastrou uma instituição validadora: ${validador.nome} de id ${validador.id}.`,token);
         res.status(200).json({success: "Instituição validadora cadastrada"});
+        }
     }catch(e){res.status(500).json({error:e})}
 });
 router.get('/', validaToken(1), async(req,res) => {
     try{
-        const validador = await Validador.findOne({where: {id: getToken(req.cookies["token"]).uit}});
+        const validador = await Validador.findOne({where: {instituicaoId: getToken(req.cookies["token"]).uit}});
         res.status(200).json(validador);
     }catch(e){res.status(500).json({error:e})}
 });
 router.put('/', validaToken(1), async(req,res) => {
     try{
-        const validador = await Validador.findOne({where: {id: getToken(req.cookies["token"]).uit}});
-        if(validador) res.status(200).json(validador);
+        const validador = await Validador.findOne({where: {instituicaoId: getToken(req.cookies["token"]).uit}});
+        if(validador){
+            validador.update(req.body);
+            await criarLog(`Atualizou instituição validadora: ${validador.nome} de id ${validador.id}.`,token);
+            res.status(200).json({"success":"Validador atualizado"});
+        }
         else res.status(400).json({error: "Não há instituição validadora cadastrada."})
     }catch(e){res.status(500).json({error:e})}
 });
 
-export {router as Parceira};
+export {router as Validador};

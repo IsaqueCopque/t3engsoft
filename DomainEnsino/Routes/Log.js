@@ -27,4 +27,4 @@ router.get('/:id', validaToken(1), async(req,res) => {
     }catch(e){res.status(500).json({error: e})}
 });
 
-export { criarLog, router as Logs };
+export { criarLog, router as Log };

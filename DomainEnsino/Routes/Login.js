@@ -28,4 +28,21 @@ router.post('/', async (req,res) => {
     }else{res.status(400).send("Não há registros para o email informado.")}
 });
 
+router.post('/change', async (req,res) => {
+    try{
+        const {email, senha} = req.body;
+        const colaborador = await Colaborador.findOne({where: {email: email}});
+        if(colaborador){
+            const hash = hashSenha(senha);
+            await colaborador.update({"senha": hash});
+            res.status(200).json({"sucess": "Senha atualizada"});
+        }else{ res.status(400).json({error: "Este email não está cadastrado."}); }
+    }catch(e){res.status(500).json({error: e})};
+});
+
+router.post('/logout', (req,res) => {
+    res.clearCookie("token");
+    res.status(200).end();
+})
+
 export { router as Login };

@@ -16,7 +16,7 @@ router.put('/:id', validaToken(3), async(req,res) => {
         const curso = await Curso.findOne({where: {id: req.params.id}});
         if(curso){
             await curso.update(req.body);
-            await criarLog(`Alterou dados do Curso ${curso.nome} de id ${curso.id}.`,getToken(req.cookies["token"]).uit);
+            await criarLog(`Alterou dados do Curso ${curso.nome} de id ${curso.id}.`,getToken(req.cookies["token"]));
             res.status(200).end();
         }
         else
@@ -27,7 +27,7 @@ router.delete('/:id', validaToken(3), async(req,res) => {
     try{
         const curso = await Curso.findOne({where: {id: req.params.id}});
         if(curso){
-            await criarLog(`Deletou Curso ${curso.nome} de id ${curso.id}.`,getToken(req.cookies["token"]).uit);
+            await criarLog(`Deletou Curso ${curso.nome} de id ${curso.id}.`,getToken(req.cookies["token"]));
             await curso.destroy();
             res.status(200).end();
         }
@@ -37,17 +37,17 @@ router.delete('/:id', validaToken(3), async(req,res) => {
 });
 router.post('/', validaToken(3), async(req,res) => {
     try{
-        var curso = await Curso.findOne({where: {email: req.body.email}});
+        var curso = await Curso.findOne({where: {emec: req.body.emec}});
         if(curso)
-            res.status(400).json({error: "Já existe um curso cadastrado neste email."})
+            res.status(400).json({error: "Já existe um curso com este código."})
         else{
             const curso = await Curso.create(req.body);
-            const inst = getToken(req.cookies["token"]).uit;
-            await curso.setInstituicao(inst);
-            await criarLog(`Cadastrou o Curso ${curso.nome} de id ${curso.id}.`,getToken(req.cookies["token"]).uit);
+            const token = getToken(req.cookies["token"]);
+            await curso.setInstituicao(token.uit);
+            await criarLog(`Cadastrou o Curso ${curso.nome} de id ${curso.id}.`,token);
         }
         res.status(200).end();
     }catch(error){res.status(500).json({error})}
 });
 
-export {router as User};
+export {router as Cursos};

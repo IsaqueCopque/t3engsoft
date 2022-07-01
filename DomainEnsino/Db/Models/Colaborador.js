@@ -27,6 +27,10 @@ const Colaborador = db.define('colaborador',{
     email:{
         type: Sequelize.STRING,
         allowNull: false
+    },
+    senha:{
+        type: Sequelize.STRING,
+        allowNull: false,
     }
 })
 

@@ -17,19 +17,19 @@ const Curso = db.define('Curso',{
         allowNull: false
     },
     emec:{
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull: false
     },
     autorizacao:{
-        type: Sequelize.JSON,
+        type: Sequelize.STRING,
         allowNull: false
     },
     reconhecimento:{
-        type: Sequelize.JSON,
+        type: Sequelize.STRING,
         allowNull: false
     },
     renovacao:{
-        type: Sequelize.JSON,
+        type: Sequelize.STRING,
         allowNull: false
     },
 })
