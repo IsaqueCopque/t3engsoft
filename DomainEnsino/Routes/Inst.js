@@ -13,15 +13,15 @@ router.post('/', validaToken(1), async (req,res) => {
         await diretor.setInstituicao(inst.id);
         token = geraToken({uid: diretor.id, uit: inst.id, ulv: 1});
         res.cookie("token",token);
-        res.status(200).end();
+        res.status(200).json({"success": "Insitituição criada."});
     }catch(e){res.status(500).json({error: e})}
 });
 router.get('/', validaToken(1), async (req,res) => {
     try{
         const uit = getToken(req.cookies["token"]).uit;
         const inst = await Instituicao.findOne({where: {id: uit}});
-        if(inst) res.status(200).json(inst);
-        else res.status(400).json({error: "Você não possui nenhuma instituição."})        
+        res.status(200).json(inst);
+        // else res.status(400).json({error: "Você não possui nenhuma instituição."})        
     }catch(error){res.status(500).json({error: error})}
 });
 router.put('/', validaToken(1), async (req,res) => {

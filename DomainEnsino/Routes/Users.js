@@ -5,9 +5,10 @@ import { criarLog } from './Log.js';
 
 const router = express.Router();
 
-router.get('/', validaToken(),async(req,res) => {
+router.get('/', validaToken(1),async(req,res) => {
     try{
-        const colaboradores = await Colaborador.findAll();
+        const token = getToken(req.cookies["token"]);
+        const colaboradores = await Colaborador.findAll({where: {instituicaoId: token.uit}});
         res.status(200).json(colaboradores);
     }catch(error){res.status(500).json({error})}
 });
@@ -41,18 +42,22 @@ router.delete('/:id', validaToken(1), async(req,res) => {
 
 router.post('/', validaToken(1), async(req,res) => {
     try{
-        var colaborador = await Colaborador.findOne({where: {email: req.body.email}});
-        if(colaborador)
-            res.status(400).json({error: "Já existe um colaborador cadastrado neste email."})
+        const token = getToken(req.cookies["token"]);
+        if(!token.uit){res.status(400).json({error: "Cadastre uma instituição primeiro."})}
         else{
-            const hash = hashSenha("default123");
-            const colabData = {...req.body, "senha": hash};
-            colaborador = await Colaborador.create(colabData);
-            const token = getToken(req.cookies["token"]);
-            await colaborador.setInstituicao(token.uit);
-            await criarLog(`Cadastrou o colaborador ${colaborador.nome} de id ${colaborador.id}.`,token);
-        }
-        res.status(200).end();
+            var colaborador = await Colaborador.findOne({where: {email: req.body.email}});
+            if(colaborador)
+                res.status(400).json({error: "Já existe um colaborador cadastrado neste email."})
+            else{
+                const hash = hashSenha("default123");
+                const colabData = {...req.body, "senha": hash};
+                colaborador = await Colaborador.create(colabData);
+                const token = getToken(req.cookies["token"]);
+                await colaborador.setInstituicao(token.uit);
+                await criarLog(`Cadastrou o colaborador ${colaborador.nome} de id ${colaborador.id}.`,token);
+            }
+            res.status(200).end();
+        }   
     }catch(error){res.status(500).json({error})}
 });
 

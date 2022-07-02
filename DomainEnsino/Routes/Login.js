@@ -10,7 +10,7 @@ router.post('/register', async (req,res) => {
     try{
         const hash = hashSenha(req.body.senha);
         req.body.senha = hash;
-        await Colaborador.create(req.body);
+        await Colaborador.create({...req.body,"cargo":1});
         res.status(200).json({"sucess": "Diretor criado."});
     }catch(e){res.status(500).send("Erro ao cadastrar colaborador. "+e);}
 })
@@ -22,7 +22,7 @@ router.post('/', async (req,res) => {
         if(verificaSenha(senha,colaborador.senha)){
             const token = geraToken({uid: colaborador.id, ulv: colaborador.cargo, uit: colaborador.instituicaoId});
             res.cookie("token", token); 
-            res.status(200).json(token);
+            res.status(200).json({"token":token, cargo:colaborador.cargo});
         }
         else{ res.status(400).send("Credências de login incorretas."); }
     }else{res.status(400).send("Não há registros para o email informado.")}

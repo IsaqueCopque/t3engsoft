@@ -37,12 +37,12 @@ a{
   background-position: center;
 }
 .valida-img{
-  background-image: url("./Components/Assets/validaimg.png");
+  background-image: url("./Assets/validaimg.png");
   background-color: rgba(7,156,148,1);
   border-radius: 50%;
 }
 .instit-img{
-  background-image: url("./Components/Assets/instimg.png");
+  background-image: url("./Assets/instimg.png");
 }
 
 .card{
@@ -54,4 +54,19 @@ a{
   flex-direction: column;
   gap: 20px;
   box-shadow: 5px 5px 5px 5px rgba(2,0,36,0.87718837535014);
+}
+
+.underlink{
+  text-decoration: underline;
+}
+.underlink:hover{
+  cursor: pointer;
+  color: var(--vivblue);
+}
+
+.error-txt{
+  color: red;
+}
+.success-txt{
+  color: rgb(7,156,148);
 }
