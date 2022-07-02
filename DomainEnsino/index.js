@@ -24,13 +24,13 @@ import { Users } from './Routes/Users.js';
 import { Log } from './Routes/Log.js';
 import { Login } from './Routes/Login.js';
 import { Validador } from './Routes/Validador.js';
-import { Cursos } from './Routes/Cursos.js';
+import { Access } from './Routes/Access.js';
 app.use('/inst', Inst);
 app.use('/user', Users);
 app.use('/validador', Validador);
 app.use('/logs', Log);
-app.use('/cursos', Cursos);
 app.use('/login', Login);
+app.use('/', Access);
 //---
 
 app.listen("8082", ()=>console.log("Instituição de ensino rodando na porta 8082."));

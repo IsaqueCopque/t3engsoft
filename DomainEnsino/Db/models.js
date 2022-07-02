@@ -1,7 +1,6 @@
 import Instituicao from "./Models/Instituicao.js";
 import Colaborador from "./Models/Colaborador.js";
 import Log from './Models/Log.js';
-import Curso from "./Models/Curso.js";
 import Validador from "./Models/Validador.js";
 
 //Relações
@@ -9,9 +8,6 @@ import Validador from "./Models/Validador.js";
 //Instituicao 1:N Colaborador
 Instituicao.hasMany(Colaborador);
 Colaborador.belongsTo(Instituicao);
-//Instituicao 1:N Curso
-Instituicao.hasMany(Curso);
-Curso.belongsTo(Instituicao);
 //Colaborador 1:N Log
 Colaborador.hasMany(Log);
 Log.belongsTo(Colaborador);
@@ -21,8 +17,7 @@ Validador.belongsTo(Instituicao)
 
 await Instituicao.sync();
 await Colaborador.sync();
-await Curso.sync();
 await Log.sync();
 await Validador.sync();
 
-export { Instituicao, Colaborador, Log, Curso, Validador};
+export { Instituicao, Colaborador, Log, Validador};
