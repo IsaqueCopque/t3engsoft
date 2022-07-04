@@ -18,7 +18,13 @@ router.post('/', validaToken(2), async(req,res) => {
         }
     }catch(e){res.status(500).json({error:e})}
 });
-router.get('/', validaToken(1), async(req,res) => {
+router.get('/', validaToken(2), async(req,res) => {
+    try{
+        const validador = await Validador.findOne({where: {instituicaoId: getToken(req.cookies["token"]).uit}});
+        res.status(200).json(validador);
+    }catch(e){res.status(500).json({error:e})}
+});
+router.get('/diretor', validaToken(1), async(req,res) => {
     try{
         const validador = await Validador.findOne({where: {instituicaoId: getToken(req.cookies["token"]).uit}});
         res.status(200).json(validador);
@@ -26,14 +32,15 @@ router.get('/', validaToken(1), async(req,res) => {
 });
 router.put('/', validaToken(1), async(req,res) => {
     try{
-        const validador = await Validador.findOne({where: {instituicaoId: getToken(req.cookies["token"]).uit}});
+        const token = getToken(req.cookies["token"]);
+        const validador = await Validador.findOne({where: {instituicaoId: token.uit}});
         if(validador){
             validador.update(req.body);
             await criarLog(`Atualizou instituição validadora: ${validador.nome} de id ${validador.id}.`,token);
             res.status(200).json({"success":"Validador atualizado"});
         }
         else res.status(400).json({error: "Não há instituição validadora cadastrada."})
-    }catch(e){res.status(500).json({error:e})}
+    }catch(e){console.log(e);res.status(500).json({error:e})}
 });
 
 export {router as Validador};

@@ -21,7 +21,6 @@ router.get('/', validaToken(1), async (req,res) => {
         const uit = getToken(req.cookies["token"]).uit;
         const inst = await Instituicao.findOne({where: {id: uit}});
         res.status(200).json(inst);
-        // else res.status(400).json({error: "Você não possui nenhuma instituição."})        
     }catch(error){res.status(500).json({error: error})}
 });
 router.put('/', validaToken(1), async (req,res) => {
@@ -33,7 +32,7 @@ router.put('/', validaToken(1), async (req,res) => {
             await criarLog(`Alterou dados da instituição.`,getToken(req.cookies["token"]));
             res.status(200).end();
         }else res.status(400).json({error: "Você não possui nenhuma instituição."})
-    }catch(error){res.status(500).json({ee: error})}
+    }catch(e){res.status(500).json({error: e})}
 });
 
 export {router as Inst};

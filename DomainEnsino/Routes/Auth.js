@@ -11,7 +11,6 @@ const geraToken = (payload) => {
 
 const validaToken = (level) => {
     return (req,res, next) => {
-        console.log(req.headers)
         const token = req.cookies["token"];
         if(!token) return res.status(400).json({error: "Usuário não autenticado."})
         const verifToken = jwt.verify(token, process.env.TOKENSECRET);

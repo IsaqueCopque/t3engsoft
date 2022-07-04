@@ -8,8 +8,10 @@ const router = express.Router();
 router.get('/', validaToken(1),async(req,res) => {
     try{
         const token = getToken(req.cookies["token"]);
-        const colaboradores = await Colaborador.findAll({where: {instituicaoId: token.uit}});
-        res.status(200).json(colaboradores);
+        if(token.uit){
+            const colaboradores = await Colaborador.findAll({where: {instituicaoId: token.uit}});
+            res.status(200).json(colaboradores);
+        }else{res.status(200).json([])};
     }catch(error){res.status(500).json({error})}
 });
 
@@ -58,7 +60,7 @@ router.post('/', validaToken(1), async(req,res) => {
             }
             res.status(200).end();
         }   
-    }catch(error){res.status(500).json({error})}
+    }catch(e){console.log(e);res.status(500).json({error: "Houve um erro ao cadastrar colaborador."})}
 });
 
 export {router as Users};

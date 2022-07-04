@@ -22,7 +22,7 @@ router.post('/', async (req,res) => {
         if(verificaSenha(senha,colaborador.senha)){
             const token = geraToken({uid: colaborador.id, ulv: colaborador.cargo, uit: colaborador.instituicaoId});
             res.cookie("token", token); 
-            res.status(200).json({"token":token, cargo:colaborador.cargo});
+            res.status(200).json({"token":token, cargo:colaborador.cargo, uid:colaborador.id});
         }
         else{ res.status(400).send("Credências de login incorretas."); }
     }else{res.status(400).send("Não há registros para o email informado.")}
