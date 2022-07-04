@@ -20,11 +20,13 @@ const Usuarios = ({api, uid}) => {
     getUsers()},[setUsuarios])
 
     const getCargo = (lvl) => {
-        if(lvl === 3)
+        if(lvl === 4)
             return "Funcionário";
+        if(lvl === 3)
+            return "Coordenador";
         if(lvl === 2)
             return "Dirigente";
-        return "Diretor";
+        return "Superintendente";
     }
 
     const handleSubmit = async (e) => {
@@ -83,9 +85,10 @@ const Usuarios = ({api, uid}) => {
                         <section className={styles["name-section"]}>
                             <label htmlFor={"cargo"}>Cargo</label>
                             <select name={"cargo"} defaultValue={editUser.cargo}>    
-                                <option value={3}>Funcionário</option>
+                                <option value={4}>Funcionário</option>
+                                <option value={3}>Coordenador</option>
                                 <option value={2}>Dirigente</option>
-                                <option value={1}>Diretor</option>
+                                <option value={1}>Superintendente</option>
                             </select>
                         </section>
 
@@ -141,9 +144,10 @@ const Usuarios = ({api, uid}) => {
                         <section className={styles["name-section"]}>
                             <label htmlFor={"cargo"}>Cargo</label>
                             <select name={"cargo"}>    
-                                <option value={3}>Funcionário</option>
+                                <option value={4}>Funcionário</option>
+                                <option value={3}>Coordenador</option>
                                 <option value={2}>Dirigente</option>
-                                <option value={1}>Diretor</option>
+                                <option value={1}>Superintendente</option>
                             </select>
                         </section>
 

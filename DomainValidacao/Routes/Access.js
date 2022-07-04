@@ -29,7 +29,7 @@ router.put('/validacoes/:id', validaToken(4), async (req,res) => {//valida diplo
     try{
         const token = getToken(req.cookies["token"]);
         const data = {...req.body, "validador":token.uid};
-        await Validacao.put(req.body,req.params.id);
+        await Validacao.put(data,req.params.id);
         criarLog(`Validou solicitação de id ${req.params.id}`,token);
         res.status(200).json({"success":"Diploma validado."});
     }catch(e){res.status(500).json({error:e})}

@@ -15,24 +15,24 @@ const RegisterPanel = ({setCookie, setLogin, api}) => {
                 "email": e.target[3].value,
                 "senha": e.target[4].value
             }
-            var res = await api.post('login/register', req); //res.data.sucess == "Diretor criado."
-            res = await api.post('login', {"email":req.email, "senha":req.senha})
+            var res = await api.post('login/register', req);
+            res = await api.post('/login', {"email":req.email, "senha":req.senha})
             setCookie("token",res.data.token);
             setCookie("cargo",res.data.cargo);
             setCookie("uid",res.data.uid);
-        }catch(e){setError(e.response.data)}     
+        }catch(e){console.log(e);setError(e.response.data)}     
     };
 
     const RegisterPg = (
-        <div className={`${styles["wrapper"]} ${"gradblue"}`}>
+        <div className={`${styles["wrapper"]} ${"gradgreen"}`}>
             <div className={"card"}>
 
                 <div className={styles["welcome"]}>
                     <div className={styles["welcome-message"]}>
                     <h2>Cadastro</h2>
-                    <p>Cadastre-se como diretor de sua instituição de ensino.</p>
+                    <p>Cadastre-se como superintendente de sua instituição de validação.</p>
                     </div>
-                    <div className={"img-circle instit-img"}/>
+                    <div className={"img-circle valida-img"}/>
                 </div>
 
                 <div className={styles["login"]}>

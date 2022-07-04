@@ -8,8 +8,11 @@ const router = express.Router();
 
 router.get('/', validaToken(1),async(req,res) => {
     try{
-        const colaboradores = await Colaborador.findAll();
-        res.status(200).json(colaboradores);
+        const token = getToken(req.cookies["token"]);
+        if(token.uit){
+            const colaboradores = await Colaborador.findAll({where: {instituicaoId: token.uit}});
+            res.status(200).json(colaboradores);
+        }else{res.status(200).json([])};
     }catch(error){res.status(500).json({error})}
 });
 

@@ -1,32 +1,33 @@
 import { useState, useEffect } from "react";
 import { FiEdit } from 'react-icons/fi';
 import {MdOutlineAdd} from 'react-icons/md';
+import {TbLock} from 'react-icons/tb';
+import {TbLockOpen} from 'react-icons/tb';
 import styles from "./styles.module.css";
 
-const Validador = ({cargo, api}) => {
+const Parceiros = ({cargo, api}) => {
     
-    const [validador, setValidador] = useState({});
+    const [parceiros, setParceiros] = useState([]);
     const [edit, setEdit] = useState(false);
     const [cad, setCad] = useState(false);
     const [errorMsg, setError] = useState(''); 
 
-
     useEffect(()=>{
-        async function getValidador(){
+        async function getParceiros(){
             try{
                 var route;
-                cargo === "1"? route = "/validador/diretor" : route = "/validador";
+                cargo === "1"? route = "/parceiros" : route = "/parceiros/dirigente";
                 const res = await api.get(route);
-                if(res.data) setValidador(res.data);
+                if(res.data) setParceiros(res.data);
             }catch(e){console.log(e);}
         }
-    getValidador()},[setValidador])
+    getParceiros()},[setParceiros])
 
 
     const handleUpdate = async(e) => {
         e.preventDefault(); 
         try{
-            await api.put('/validador',
+            await api.put(`/parceiros/${edit.id}`,
             {
                 "nome":e.target[0].value, 
                 "endereco":e.target[1].value, 
@@ -41,7 +42,7 @@ const Validador = ({cargo, api}) => {
     const handleCad = async(e) => {
         e.preventDefault(); 
         try{
-            await api.post('/validador',
+            await api.post('/parceiros',
             {
                 "nome":e.target[0].value, 
                 "endereco":e.target[1].value, 
@@ -53,43 +54,78 @@ const Validador = ({cargo, api}) => {
         }catch(e){console.log(e);setError(e.response.data)}
     }
 
+    const handleAcess = async(e) => {
+        e.preventDefault(); 
+        try{
+            api.put(`/parceiros/acesso/${edit.id}`,{"acesso": !edit.acesso});
+            setEdit(false);
+            window.location.reload();
+        }catch(e){}
+    }
+
+    const handleDel = async(e) => {
+        e.preventDefault(); 
+        try{
+            api.delete(`/parceiros/${edit.id}`);
+            setEdit(false);
+            window.location.reload();
+        }catch(e){}
+    }
+    
     const Content = () => {
         if(edit){
             return(
                 <div>
-                 <h3>Atualize a instituição validadora</h3>
+                 <h3>Atualize a instituição parceira</h3>
                     <form className={styles['log-form']}
                     onSubmit={(e)=>handleUpdate(e)}>
                          <p className="error-txt">{errorMsg}</p>
                         <section className={styles['form-section']}>
                         <label htmlFor={"nome"}>Nome</label>
-                        <input name={"nome"} type={"text"} defaultValue={validador.nome}/>
+                        <input name={"nome"} type={"text"} defaultValue={edit.nome}/>
                         </section>
 
                         <section className={styles['form-section']}>
                         <label htmlFor={"endereco"}>Endereço</label>
-                        <input name={"endereco"} type={"text"} defaultValue={validador.endereco}></input>
+                        <input name={"endereco"} type={"text"} defaultValue={edit.endereco}></input>
                         </section>
 
                         <section className={styles['form-section']}>
                         <label htmlFor={"mec"}>Mec</label>
-                        <input name={"mec"} type={"text"} defaultValue={validador.mec}></input>
+                        <input name={"mec"} type={"text"} defaultValue={edit.mec}></input>
                         </section>
 
                         <section className={styles['form-section']}>
                         <label htmlFor={"mantenedora"}>Mantenedora</label>
-                        <input name={"mantenedora"} type={"text"} defaultValue={validador.mantenedora}></input>
+                        <input name={"mantenedora"} type={"text"} defaultValue={edit.mantenedora}></input>
                         </section>
 
                         <input type={"submit"} value={"Atualizar"}></input>                
                     </form>
+                    <div className={styles["edit-div"]} onClick={(e)=>handleDel(e)}>
+                        <FiEdit size={"2em"}/>
+                        <p>Editar</p>
+                    </div>
+                    <div className={styles["edit-div"]} onClick={(e)=>handleAcess(e)}>
+                        {edit.acesso? 
+                            <>
+                            <TbLock size={"2em"}/>
+                            <p>Bloquear</p>
+                            </>
+                            :
+                            <>
+                            <TbLockOpen size={"2em"}/>
+                            <p>Liberar</p>
+                            </>
+                        }   
+                    </div>
             </div>
             )
         }
         if(cad){
             return(
                 <div>
-                 <h3>Cadastre a instituição validadora</h3>
+                 <h3>Cadastre a instituição parceira</h3>
                     <form className={styles['log-form']}
                     onSubmit={(e)=>handleCad(e)}>
                          <p className="error-txt">{errorMsg}</p>
@@ -118,46 +154,52 @@ const Validador = ({cargo, api}) => {
             </div>
             )
         }
-        if(Object.keys(validador).length){
+        if(parceiros.length){
             return(
-                <div className={"card"}>
-                <h2>Dados da instituicão</h2>
-                <h4>{`Nome: ${validador.nome}`}</h4>
-                <h4>{`Endereço: ${validador.endereco}`}</h4>
-                <h4>{`Mec: ${validador.mec}`}</h4>
-                <h4>{`Mantenedora: ${validador.mantenedora}`}</h4>
-                <hr/>
-                {cargo === "1"? 
-                    <div className={styles["edit-div"]} onClick={()=>setEdit(true)}>
-                        <FiEdit size={"2em"}/>
-                        <p>Editar</p>
-                    </div>
-                    :
-                    <></>
-                }
-            </div>
+                <div className={styles["map-container"]}>
+                    {parceiros.map( parceiro => 
+                        <div className={"card"} key={parceiro.id}>
+                            <h4>{`Nome: ${parceiro.nome}`}</h4>
+                            <h4>{`Endereço: ${parceiro.endereco}`}</h4>
+                            <h4>{`Mec: ${parceiro.mec}`}</h4>
+                            <h4>{`Mantenedora: ${parceiro.mantenedora}`}</h4>
+                            {cargo === "1"? <h4>{`Acesso: ${parceiro.acesso? "Liberado" : "Negado"}`}</h4> : <></>}
+                            <hr/>
+                            {cargo === "1"? 
+                                <div className={styles["edit-div"]} onClick={()=>setEdit(parceiro)}>
+                                    <FiEdit size={"2em"}/>
+                                    <p>Editar</p>
+                                </div>
+                                :
+                                <></>
+                            }
+                        </div>
+                    )}
+                </div>
             )
         }
         else{
             return(
               <div>  
                 <h3>Nenhuma instituicão de validação cadastrada.</h3>
-                {cargo === "2"? 
-                    <div className={[styles["edit-div"]]} onClick={()=>setCad(true)}>
-                        <MdOutlineAdd size={"2em"}/>
-                        <p>Adicionar validador</p>
-                    </div>
-                    :
-                    <></>
-                }
              </div>
             )
         }
     }
 
     return (
+        <>
+        {cargo === '2'?  
+            <div className={[styles["edit-div"]]} onClick={()=>setCad(true)}>
+                <MdOutlineAdd size={"2em"}/>
+                <p>Adicionar parceiro</p>
+            </div>
+            :
+            <></>
+        }
         <Content/>
+        </>
     );
 }
 
-export default Validador;
+export default Parceiros;

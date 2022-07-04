@@ -12,7 +12,8 @@ router.post('/register', async (req,res) => {
         if(!superint){
             const hash = hashSenha(req.body.senha);
             req.body.senha = hash;
-            await Colaborador.create(req.body);
+            const data = {...req.body, "cargo":1};
+            await Colaborador.create(data);
             res.status(200).json({"sucess": "Superintendente criado."});
         }else res.status(400).json({erro: "Este email já possue cadastro."})
     }catch(e){res.status(500).send("Erro ao cadastrar superintendente. "+e);}
@@ -25,7 +26,7 @@ router.post('/', async (req,res) => {
         if(verificaSenha(senha,colaborador.senha)){
             const token = geraToken({uid: colaborador.id, ulv: colaborador.cargo, uit: colaborador.instituicaoId});
             res.cookie("token", token); 
-            res.status(200).json(token);
+            res.status(200).json({"token":token, cargo:colaborador.cargo, uid:colaborador.id});
         }
         else{ res.status(400).send("Credências de login incorretas."); }
     }else{res.status(400).send("Não há registros para o email informado.")}

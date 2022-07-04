@@ -15,13 +15,13 @@ router.post('/', validaToken(1), async (req,res) => {
         const newtoken =  geraToken({uid: superint.id, ulv: 1, uit: inst.id}); //token com uit novo
         res.cookie("token",newtoken);
         res.status(200).end();
-    }catch(error){res.status(500).json({error})}
+    }catch(error){console.log(error);res.status(500).json({error})}
 });
 router.get('/', validaToken(1), async (req,res) => {
     try{
         const uit = getToken(req.cookies["token"]).uit;
         const inst = await Instituicao.findOne({where: {id: uit}});
-        res.send(200).json(inst);
+        res.status(200).json(inst);
     }catch(error){res.status(500).json({error: error})}
 });
 router.put('/', validaToken(1), async (req,res) => {

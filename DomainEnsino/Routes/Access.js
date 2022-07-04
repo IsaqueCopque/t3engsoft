@@ -24,7 +24,7 @@ router.get('/cursos', validaToken(3),async(req,res) => {//obtém cursos
         const token = getToken(req.cookies["token"]);
         const cursos = await Curso.get(token.uit);
         res.status(200).json(cursos);
-    }catch(e){res.status(500).json({error: e})}
+    }catch(e){console.log();res.status(500).json({error: e})}
 });
 
 router.put('/cursos/:id', validaToken(3), async(req,res) => {//atualiza curso

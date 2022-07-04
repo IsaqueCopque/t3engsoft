@@ -2,7 +2,6 @@ import style from './Header.module.css';
 import { MdLogout, MdAccountCircle } from 'react-icons/md'
 
 const Header = ({setOp, cargo, removeCookie}) => {
-
     const DiretorOp = () => (
         <div className={style["options"]}>
             <div className={style["option"]}
@@ -15,6 +14,10 @@ const Header = ({setOp, cargo, removeCookie}) => {
             </div>
             <div className={style["option"]}
              onClick={()=>setOp(3)}>
+                Validador
+            </div>
+            <div className={style["option"]}
+             onClick={()=>setOp(4)}>
                 Atividades
             </div>
         </div>
@@ -23,12 +26,12 @@ const Header = ({setOp, cargo, removeCookie}) => {
         <div className={style["options"]}>
             <div className={style["option"]}
              onClick={()=>setOp(1)}>
-                Instituições
+                Validador
             </div>
-            <div className={style["option"]}
+            {/* <div className={style["option"]}
              onClick={()=>setOp(2)}>
-                Usuários
-            </div>
+                Atividades
+            </div> */}
         </div>
     );
     const FuncionarioOp = () => {
@@ -48,7 +51,7 @@ const Header = ({setOp, cargo, removeCookie}) => {
 
     const UserOp = () => (
         <>
-            {cargo === '1'? <DiretorOp/> : (cargo === 2? <DirigenteOp/> : <FuncionarioOp/>)}
+            {cargo === '1'? <DiretorOp/> : (cargo === '2'? <DirigenteOp/> : <FuncionarioOp/>)}
         </>
     )
 

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import Ensino from './Ensino/index.js';
-// import Validacao from './Validacao/index.js';
+import Validacao from './Validacao/index.js';
 import './index.css';
 
 const Router = () =>{
@@ -12,7 +12,7 @@ const Router = () =>{
       <BrowserRouter>
         <Routes>
           <Route path='/ensino/' element={<Ensino/>} />
-          {/* <Route path='/validacao/' element={<Validacao/>} /> */}
+          <Route path='/validacao/' element={<Validacao/>} />
         </Routes>
       </BrowserRouter>
   </React.StrictMode>
