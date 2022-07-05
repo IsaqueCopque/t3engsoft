@@ -188,9 +188,9 @@ const Parceiros = ({cargo, api}) => {
     }
 
     return (
-        <>
+        <div className={styles["sub-wrapper"]}>
         {cargo === '2'?  
-            <div className={[styles["edit-div"]]} onClick={()=>setCad(true)}>
+            <div className={`${styles["edit-div"]} ${styles["sub-header"]}`} onClick={()=>setCad(true)}>
                 <MdOutlineAdd size={"2em"}/>
                 <p>Adicionar parceiro</p>
             </div>
@@ -198,7 +198,7 @@ const Parceiros = ({cargo, api}) => {
             <></>
         }
         <Content/>
-        </>
+        </div>
     );
 }
 

@@ -20,7 +20,7 @@ const Logs = ({api}) => {
             <div className={styles["map-container"]}>
                 {
                     logs.map((log) => (
-                        <div className={styles["user-card"]} key={log.id}>
+                        <div className={styles["map-card"]} key={log.id}>
                             <h4>{`ID do autor: ${log.id}`}</h4>
                             <h5>{`Data: ${log.data}`}</h5>
                             <h5>Ação:</h5>

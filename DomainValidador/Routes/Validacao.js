@@ -47,7 +47,7 @@ router.put('/validar/:id', async (req,res) => {//validar
     try{    
         const solicitacao = await Validacao.findOne({where: {id: req.params.id}});
         if(solicitacao){
-            await solicitacao.update({status: req.body.status})
+            await solicitacao.update({status: req.body.status, validador: req.body.validador})
             res.status(200).json({"success": "Solicitação validada com sucesso."});
         }else{ res.status(400).json({"error": "Não há válidação com o id informado."}) }
     }catch(e){res.status(500).json({error:e})}

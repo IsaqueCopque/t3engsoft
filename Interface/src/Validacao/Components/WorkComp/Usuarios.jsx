@@ -179,12 +179,14 @@ const Usuarios = ({api, uid}) => {
 
         if(usuarios.length){
             return(
-                <>
-                <CadDiv />
-                <div className={styles["users"]}>
+                <div className={styles["sub-wrapper"]}>
+                    <div className={styles["sub-header"]}>
+                    <CadDiv />
+                    </div>
+                <div className={styles["map-container"]}>
                     {
                         usuarios.map((usuario) => (
-                            <div className={styles["user-card"]} key={usuario.id}>
+                            <div className={styles["map-card"]} key={usuario.id}>
                                 <h4>{usuario.nome}</h4>
                                 <h5>{getCargo(usuario.cargo)}</h5>
                                 <h5>{`Email: ${usuario.email}`}</h5>
@@ -199,7 +201,7 @@ const Usuarios = ({api, uid}) => {
                         ))
                     }
                 </div>
-                </>
+                </div>
             )
         }
         else{
@@ -218,11 +220,7 @@ const Usuarios = ({api, uid}) => {
         }
     }
 
-    return (
-    <div className={styles["wrapper"]}>
-        <Content />
-     </div>
-    );
+    return (<Content />);
 };
 
 export default Usuarios;

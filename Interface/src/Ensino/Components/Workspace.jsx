@@ -22,7 +22,6 @@ const Workspace = ({op, cookies, api}) => {
         }else if(cookies.cargo === '2'){
             switch(op){
                 case 1: return <Validador api={api} cargo={cookies.cargo}/>
-                // case 2: return <Logs api={api}/> 
             }
         }else if(cookies.cargo === '3'){
             switch(op){

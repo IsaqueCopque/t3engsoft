@@ -74,8 +74,8 @@ const Usuarios = ({api, uid}) => {
                     <h3>Atualização de usuário</h3>
                     <form className={styles['log-form']}
                     onSubmit={(e)=>handleUpdate(e)}>
-                        <section className={styles["name-section"]}>
                         <p className="error-txt">{errorMsg}</p>
+                        <section className={styles["name-section"]}>
                         <label htmlFor={"nome"}>Nome</label>
                         <input name={"nome"} type={"text"} defaultValue={editUser.nome}></input>
                         
@@ -177,10 +177,10 @@ const Usuarios = ({api, uid}) => {
             return(
                 <>
                 <CadDiv />
-                <div className={styles["users"]}>
+                <div className={styles["map-container"]}>
                     {
                         usuarios.map((usuario) => (
-                            <div className={styles["user-card"]} key={usuario.id}>
+                            <div className={styles["map-card"]} key={usuario.id}>
                                 <h4>{usuario.nome}</h4>
                                 <h5>{getCargo(usuario.cargo)}</h5>
                                 <h5>{`Email: ${usuario.email}`}</h5>
@@ -214,11 +214,7 @@ const Usuarios = ({api, uid}) => {
         }
     }
 
-    return (
-    <div className={styles["wrapper"]}>
-        <Content />
-     </div>
-    );
+    return (<Content />);
 };
 
 export default Usuarios;

@@ -1,14 +1,29 @@
 .wrapper{
-    width: 100vw;
+    max-width: 100vw;
     height: 100vh;
+    margin: 0px;
+    padding: 0px;
     color: var(--spacedcad);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    padding-top: 25px;
+    /* justify-content: space-between; */
     align-items: center;
 }
 .wrapper :global(.card){
     background-color: white;
+}
+.sub-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.sub-header{
+    cursor: pointer;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
 }
 .log-form{
     font-size: 18px;
@@ -22,6 +37,7 @@
 }
 .name-section{
     display: flex;
+    justify-content: space-between;
     gap: 30px;
 }
 input{
@@ -46,4 +62,14 @@ input[type=submit]{
     font-size: 18px;
     gap:5px;
     cursor: pointer;
+}
+.map-container{
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.map-card{
+    padding: 5px;
+    border: 1px solid black;
 }

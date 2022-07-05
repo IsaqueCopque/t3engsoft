@@ -168,7 +168,7 @@ const Cursos = ({api}) => {
             return(
                 <div className={styles["map-container"]}>
                     {cursos.map( curso =>
-                        <div className={"card"} key={curso.id}>
+                        <div className={styles["map-card"]} key={curso.id}>
                             <h3>{`Nome: ${curso.nome}`}</h3>
                             <h4>{`Grau: ${curso.grau}`}</h4>
                             <h4>{`Emec: ${curso.emec}`}</h4>
@@ -176,7 +176,6 @@ const Cursos = ({api}) => {
                             <h4>{`Reconhecimento: ${curso.reconhecimento}`}</h4>
                             <h4>{`Renovação: ${curso.renovacao}`}</h4>
                             {curso.observacao? <small>{`Observação: ${curso.observacao}`}</small> : <></>}
-                            <hr/>
                             <div className={styles["edit-div"]} onClick={()=>setEdit(curso)}>
                                 <FiEdit size={"2em"}/>
                                 <p>Editar</p>
@@ -192,13 +191,17 @@ const Cursos = ({api}) => {
     }
 
     return(
-        <>
-        <div className={[styles["edit-div"]]} onClick={()=>setCad(true)}>
-            <MdOutlineAdd size={"2em"}/>
-            <p>Adicionar curso</p>
-        </div>
+        <div className={styles["sub-wrapper"]}>
+        {!edit? 
+            <div className={[styles["sub-header"]]} onClick={()=>setCad(true)}>
+                <MdOutlineAdd size={"2em"}/>
+                <p>Adicionar curso</p>
+            </div>
+            :
+            <></>
+        }
         <Content />
-        </>
+        </div>
     )
 
 }
