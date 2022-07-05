@@ -88,23 +88,23 @@ const Cursos = ({api}) => {
                         </section>
 
                         <section className={styles['form-section']}>
-                        <label htmlFor={"mantenedora"}>Mantenedora</label>
-                        <input name={"mantenedora"} type={"text"} defaultValue={edit.autorizacao}></input>
+                        <label htmlFor={"autorizacao"}>Autorização</label>
+                        <input name={"autorizacao"} type={"text"} defaultValue={edit.autorizacao}></input>
                         </section>
 
                         <section className={styles['form-section']}>
-                        <label htmlFor={"mantenedora"}>Mantenedora</label>
-                        <input name={"mantenedora"} type={"text"} defaultValue={edit.reconhecimento}></input>
+                        <label htmlFor={"reconhecimento"}>Reconhecimento</label>
+                        <input name={"reconhecimento"} type={"text"} defaultValue={edit.reconhecimento}></input>
                         </section>
 
                         <section className={styles['form-section']}>
-                        <label htmlFor={"mantenedora"}>Mantenedora</label>
-                        <input name={"mantenedora"} type={"text"} defaultValue={edit.renovacao}></input>
+                        <label htmlFor={"renovacao"}>Renovação</label>
+                        <input name={"renovacao"} type={"text"} defaultValue={edit.renovacao}></input>
                         </section>
 
                         <section className={styles['form-section']}>
-                        <label htmlFor={"mantenedora"}>Observação</label>
-                        <input name={"mantenedora"} type={"text"} defaultValue={edit.observacao}></input>
+                        <label htmlFor={"observacao"}>Observação</label>
+                        <input name={"observacao"} type={"text"} defaultValue={edit.observacao}></input>
                         </section>
 
                         <input type={"submit"} value={"Atualizar"}></input>                
