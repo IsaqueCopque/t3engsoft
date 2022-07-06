@@ -46,13 +46,15 @@ router.get('/acesso/', validaToken(1), async(req,res) => { //obtém as que tem a
 });
 router.get('/', validaToken(1), async(req,res) => { //obtém todas
     try{
-        const parc = await Parceira.findAll();
+        const token = getToken(req.cookies["token"]);
+        const parc = await Parceira.findAll({where: {instituicaoId: token.uit} });
         res.status(200).json(parc);
     }catch(e){res.status(500).json({error:e})}
 });
 router.get('/dirigente', validaToken(2), async(req,res) => {
     try{
-        const parc = await Parceira.findAll();
+        const token = getToken(req.cookies["token"]);
+        const parc = await Parceira.findAll({where: {instituicaoId: token.uit} });
         res.status(200).json(parc);
     }catch(e){res.status(500).json({error:e})}
 });
