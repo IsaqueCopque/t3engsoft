@@ -4,7 +4,7 @@
 
 - Isaque Santana Copque
 - Jorge Luis da Silva Batista Filho
-- Rodrigo da Silva Rodrigues
+- Ricardo da Silva Rodrigues
 
 ## Organização
 
