@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { FiEdit } from 'react-icons/fi';
 import {MdOutlineAdd} from 'react-icons/md';
+import { AiOutlineUserDelete } from 'react-icons/ai';
 import {TbLock} from 'react-icons/tb';
 import {TbLockOpen} from 'react-icons/tb';
 import styles from "./styles.module.css";
@@ -103,8 +104,8 @@ const Parceiros = ({cargo, api}) => {
                         <input type={"submit"} value={"Atualizar"}></input>                
                     </form>
                     <div className={styles["edit-div"]} onClick={(e)=>handleDel(e)}>
-                        <FiEdit size={"2em"}/>
-                        <p>Editar</p>
+                        <AiOutlineUserDelete size={"2em"}/>
+                        <p>Deletar</p>
                     </div>
                     <div className={styles["edit-div"]} onClick={(e)=>handleAcess(e)}>
                         {edit.acesso? 

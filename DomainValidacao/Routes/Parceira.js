@@ -20,7 +20,7 @@ router.put('/acesso/:id', validaToken(1), async(req,res) => {
         const parc = await Parceira.findOne({where: {id: req.params.id}});
         if(parc){
             await parc.update({"acesso":req.body.acesso});
-            await criarLog(`Liberou acesso da instituição ${parc.nome} de id ${parc.id}.`,getToken(req.cookies["token"]));
+            await criarLog(`Alterou acesso da instituição ${parc.nome} de id ${parc.id}.`,getToken(req.cookies["token"]));
             res.status(200).json({success: "Acesso definido"});
         }
         else{res.status(400).json({error: "Não existe instituição parceira com o id informado."})}
@@ -68,18 +68,3 @@ router.delete('/:id', validaToken(1), async(req,res) => {
 });
 
 export {router as Parceira};
-
-/*
-
-router.post('/acesso/:id', validaToken(1), async(req,res) => {
-    try{
-        const parc = await Parceira.findOne({where: {id: req.params.id}});
-        if(parc){
-            await parc.update({"acesso":req.body.acesso});
-            await criarLog(`Liberou acesso da instituição ${parc.nome} de id ${parc.id}.`,getToken(req.cookies["token"]));
-            res.status(200).json({success: "Acesso definido"});
-        }
-        else{res.status(400).json({error: "Não existe instituição parceira com o id informado."})}
-    }catch(e){res.status(500).json({error:e})}
-});
-*/
